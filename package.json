@@ -10,5 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "sqlite3": "^5.1.7"
+  }
 }

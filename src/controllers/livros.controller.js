@@ -26,7 +26,7 @@ class LivrosController {
             categoria,
             editora,
             numeroPaginas,
-            ano: parseInt(ano)
+            ano: parseInt(ano),
         });
         res.status(201).json({
         mensagem: "Livro criado com sucesso",
