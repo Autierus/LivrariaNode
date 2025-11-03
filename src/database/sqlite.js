@@ -28,6 +28,15 @@ function init() {
     editora TEXT NOT NULL,
     numeroDePaginas INTEGER NOT NULL
     )`);
+    run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+
     console.log('Banco de dados SQLite inicializado');
 }
 module.exports = { getDb, run, get, all, init };
