@@ -31,7 +31,7 @@ class AuthController {
             const hash = await bcrypt.hash(password, 10);
 
             // Cria o novo usuário
-            const user = await this.usersRepo.create({ username, nome, email, password: hash });
+            const user = await this.usersRepo.create({ username, nome, email, passwordHash: hash });
 
             // Armazena o ID do usuário na sessão
             req.session.userId = user.id;

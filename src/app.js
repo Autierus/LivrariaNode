@@ -4,6 +4,7 @@ db.init(); // garante que a tabela exista antes das rotas
 
 //Todas as rotas da aplicação (centralizadas)
 const routes = require("./routes");
+    
 
 //Configura o middleware de tratamento de erros
 const errorHandler = require("./middleware/errorHandler");

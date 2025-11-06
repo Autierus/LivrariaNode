@@ -2,26 +2,55 @@ const db = require('../database/sqlite');
 const User = require('../models/user.model');
 
 class UsersRepository {
-    // Buscar usuário pelo ID
     async findById(id) {
         const row = await db.get('SELECT id, username, email, nome, created_at FROM users WHERE id = ?', [id]);
         return row ? User.fromDB(row) : null;
     }
 
-    // Buscar usuário pelo username
     async findByUsername(username) {
-        const row = await db.get('SELECT id, username, email, nome, password_hash, created_at FROM users WHERE username = ?', [username]);
-        return row || null; // Inclui email, nome e password_hash
+        const row = await db.get(
+            'SELECT id, username, email, nome, password_hash, created_at FROM users WHERE username = ?',
+            [username]
+        );
+        return row
+            ? new User({
+                  id: row.id,
+                  username: row.username,
+                  email: row.email,
+                  nome: row.nome,
+                  password: row.password_hash, // necessário para bcrypt.compare
+                  created_at: row.created_at,
+              })
+            : null;
     }
 
-    // Criar um novo usuário
+    async findByEmail(email) {
+        const row = await db.get(
+            'SELECT id, username, email, nome, password_hash, created_at FROM users WHERE email = ?',
+            [email]
+        );
+        return row
+            ? new User({
+                  id: row.id,
+                  username: row.username,
+                  email: row.email,
+                  nome: row.nome,
+                  password: row.password_hash,
+                  created_at: row.created_at,
+              })
+            : null;
+    }
+
     async create({ username, passwordHash, email, nome }) {
         const result = await db.run(
-            'INSERT INTO users (username, password_hash, email, nome) VALUES (?, ?, ?, ?)', 
+            'INSERT INTO users (username, password_hash, email, nome) VALUES (?, ?, ?, ?)',
             [username, passwordHash, email, nome]
         );
-        console.log(result);
-        const row = await db.get('SELECT id, username, email, nome, created_at FROM users WHERE id = ?', [result.lastInsertRowid]);
+
+        const row = await db.get(
+            'SELECT id, username, email, nome, created_at FROM users WHERE id = ?',
+            [result.lastInsertRowid]
+        );
         return User.fromDB(row);
     }
 }

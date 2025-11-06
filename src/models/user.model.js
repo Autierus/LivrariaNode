@@ -26,7 +26,15 @@ class User {
         if (erros.length) { const e = new Error('Dados de usuário inválidos'); e.statusCode = 400; e.details = erros; throw e; } 
     }
     
-    static fromDB(row) { return new User({ id: row.id, username: row.username, created_at: row.created_at }); }
+    static fromDB(row) {
+    return new User({
+        id: row.id,
+        username: row.username,
+        nome: row.nome,
+        email: row.email,
+        created_at: row.created_at
+    });
+}
     toJSON() { return { id: this.id, username: this.username, nome: this.nome, email: this.email, created_at: this.created_at }; }
 }
 module.exports = User;

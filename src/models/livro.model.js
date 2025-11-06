@@ -1,12 +1,12 @@
 class Livro {
-    constructor({ id = null, titulo, autor, categoria, ano }) {
+    constructor({  id = null, titulo, autor, editora, categoria, ano, numeroPaginas  }) {
         this.id = id !== undefined ? id : null;
         this.titulo = String(titulo).trim();
         this.autor = String(autor).trim();
         this.editora = String(editora).trim();
         this.categoria = String(categoria).trim();
         this.ano = Number.isInteger(ano) ? ano : parseInt(ano, 10);
-        this.numeroPaginas = Number.isInteger(this.numeroPaginas);
+        this.numeroPaginas = Number.isInteger(numeroPaginas) ? numeroPaginas : parseInt(numeroPaginas, 10);
         this._validar();
     }
     _validar() {

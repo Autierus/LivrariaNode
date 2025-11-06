@@ -26,7 +26,7 @@ function init() {
     categoria TEXT NOT NULL,
     ano INTEGER NOT NULL,
     editora TEXT NOT NULL,
-    numeroDePaginas INTEGER NOT NULL
+    numeroPaginas INTEGER NOT NULL
     )`);
     run(`CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
